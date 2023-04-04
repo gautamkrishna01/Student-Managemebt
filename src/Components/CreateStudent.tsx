@@ -6,12 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "rsuite";
-import { getCountryapi } from "../Service/Createapi";
 
 const CreateStudent = () => {
   const navigate = useNavigate();
-  const { data } = useQuery("getCountry", getCountryapi);
-  console.log(data);
 
   const { register, handleSubmit, reset } = useForm();
   const { isLoading, mutateAsync } = useMutation("post", createStudent, {
@@ -28,8 +25,10 @@ const CreateStudent = () => {
   return (
     <>
       <div>
+        
         <header className="text-center text-2xl  mt-5  ">
           <h4>Apply as a Student</h4>
+         
         </header>
         <form
           onSubmit={handleSubmit((values: any) =>
@@ -74,20 +73,14 @@ const CreateStudent = () => {
               placeholder="Confirm Password"
               {...register("confirmpassword")}
             />
-            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-3 outline-none text-center">
-              {data?.data?.map((option: any, id: number) => (
-                <option key={option.id} value={option.region} className="text-purple-400">
-                  {option.region}
-                </option>
-              ))}
-            </select>
+
             <div className="my-3">
-            <button
-              className="bg-blue-600 w-1/2 text-white rounded-full p-1  "
-              type="submit"
-            >
-              Register
-            </button>
+              <button
+                className="bg-blue-600 w-1/2 text-white rounded-full p-1  "
+                type="submit"
+              >
+                Register
+              </button>
             </div>
           </div>
         </form>

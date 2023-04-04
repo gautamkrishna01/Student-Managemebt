@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery, QueryClient } from "react-query";
 import { getAlldata } from "../Service/Createapi";
 import { studentData } from "../Service/Createapi";
@@ -6,9 +6,10 @@ import { deleteValue } from "../Service/Createapi";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Loader } from "rsuite";
+
 const Read = () => {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   const { data, isLoading, refetch } = useQuery("get", getAlldata);
   console.log(data);
@@ -28,8 +29,15 @@ const Read = () => {
   return (
     <>
       <div>
-        <header className="text-2xl text-center ">
+        <header className="text-2xl text-center  flex  justify-around my-2 ">
           <h5>Student Details </h5>
+          <input
+            type="text"
+            placeholder="Search"
+            className="border rounded-full text-center outline-none "
+            value={search}
+            onChange={(e) =>setSearch(e.target.value)}
+          />
         </header>
 
         <button
@@ -73,7 +81,7 @@ const Read = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data.map((value: studentData, index: number) => (
+              {data?.data.filter((user:studentData)=>user.fristname.toLowerCase().includes(search)).map((value: studentData, index: number) => (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
@@ -82,7 +90,6 @@ const Read = () => {
                   >
                     <td className="px-6 py-4">{value.id}</td>
                   </th>
-
                   <td className="px-6 py-4">{value.fristname}</td>
 
                   <td className="px-6 py-4">{value.email}</td>

@@ -56,15 +56,4 @@ export const updateStudent = async (id:number) => {
     console.log("Unable to update the data");
   }
 };
-//country api
-export const  getCountryapi=async()=>
-{
-  try {
-     const data=await axios.get("https://restcountries.com/v3.1/all")
-     return data
-  } catch (error) {
-    console.log("Unable to get data");
-    
-    
-  }
-}
+
