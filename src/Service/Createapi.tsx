@@ -9,7 +9,12 @@ export interface studentData {
   password: string;
   confirmpassword: string;
 }
+export interface authData {
+  username: string;
+  password: number;
+}
 const header = { "Access-Control-Allow-Origin": "*" };
+
 //post the data from server
 export const createStudent = async (value: studentData) => {
   try {
@@ -45,15 +50,34 @@ export const deleteValue = async (id: number) => {
   }
 };
 
-//edit and update the data  from database
-export const updateStudent = async (id:number) => {
+// update the data from server
+export const updateStudent = async ({
+  id,
+  newData,
+}: {
+  id: string;
+  newData: studentData;
+}) => {
+  console.log("nee", newData, id);
   try {
-    const data = await axios.patch(
-      `https://641aa217f398d7d95d5abd55.mockapi.io/studentapi/${id}`
+    const { data } = await axios.put(
+      `https://641aa217f398d7d95d5abd55.mockapi.io/studentapi/${id}`,
+      newData
     );
     return data;
   } catch (error) {
-    console.log("Unable to update the data");
+    console.log("Unable to update data");
   }
 };
 
+//auth post request
+export const authPost = async (authValue: authData) => {
+  try {
+    const data = await axios.post("https://dummyjson.com/auth/login", {
+      authValue,
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

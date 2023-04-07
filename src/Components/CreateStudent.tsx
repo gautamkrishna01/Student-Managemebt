@@ -5,8 +5,6 @@ import { createStudent } from "../Service/Createapi";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Loader } from "rsuite";
-
 const CreateStudent = () => {
   const navigate = useNavigate();
 

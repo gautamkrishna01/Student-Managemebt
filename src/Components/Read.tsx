@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, QueryClient } from "react-query";
-import { getAlldata } from "../Service/Createapi";
+import { getAlldata, updateStudent } from "../Service/Createapi";
 import { studentData } from "../Service/Createapi";
 import { deleteValue } from "../Service/Createapi";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Read = () => {
+  
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
   const { data, isLoading, refetch } = useQuery("get", getAlldata);
-  console.log(data);
+  
+
   const { mutateAsync } = useMutation("delete", deleteValue, {
     onSuccess: () => {
       toast.success("Delete Succesfully", {
@@ -36,7 +38,7 @@ const Read = () => {
             placeholder="Search"
             className="border rounded-full text-center outline-none "
             value={search}
-            onChange={(e) =>setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </header>
 
@@ -81,39 +83,43 @@ const Read = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data.filter((user:studentData)=>user.fristname.toLowerCase().includes(search)).map((value: studentData, index: number) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    key={index}
-                  >
-                    <td className="px-6 py-4">{value.id}</td>
-                  </th>
-                  <td className="px-6 py-4">{value.fristname}</td>
-
-                  <td className="px-6 py-4">{value.email}</td>
-                  <td className="px-6 py-4">{value.lastname}</td>
-                  <td className="px-6 py-4">{value.phone}</td>
-                  <td className="px-6 py-4">{value.password}</td>
-                  <td className="px-6 py-4">{value.confirmpassword}</td>
-                  <td className="px-6 py-4">
-                    <Link to="/update">
-                      <button className="bg-green-500 rounded-lg p-2 text-white">
-                        Edit
-                      </button>
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      className="bg-red-600 rounded-lg p-2 text-white"
-                      onClick={() => mutateAsync(value.id)}
+              {data?.data
+                .filter((user: studentData) =>
+                  user.fristname.toLowerCase().includes(search)
+                )
+                .map((value: studentData, index: number) => (
+                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      key={index}
                     >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      <td className="px-6 py-4">{value.id}</td>
+                    </th>
+                    <td className="px-6 py-4">{value.fristname}</td>
+
+                    <td className="px-6 py-4">{value.email}</td>
+                    <td className="px-6 py-4">{value.lastname}</td>
+                    <td className="px-6 py-4">{value.phone}</td>
+                    <td className="px-6 py-4">{value.password}</td>
+                    <td className="px-6 py-4">{value.confirmpassword}</td>
+                    <td className="px-6 py-4">
+                      <Link to={`/update/${value.id}`}>
+                        <button className="bg-green-500 rounded-lg p-2 text-white">
+                          Edit
+                        </button>
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        className="bg-red-600 rounded-lg p-2 text-white"
+                        onClick={() => mutateAsync(value.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
