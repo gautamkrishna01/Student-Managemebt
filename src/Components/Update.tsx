@@ -1,11 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { studentData, updateStudent } from "../Service/Createapi";
-import { useParams } from "react-router-dom";
-
+import {  useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 const Update = () => {
+  const navigate=useNavigate
   const { register, handleSubmit } = useForm();
-  const { mutateAsync } = useMutation(["update"], updateStudent);
+  const { mutateAsync } = useMutation(["update"], updateStudent,{
+    onSuccess: () => {
+      toast.success("Update succesfully", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      navigate("/read");
+    },
+  });
   const { id } = useParams();
   return (
     <>
@@ -57,13 +65,14 @@ const Update = () => {
               />
               <button
                 className="bg-blue-600 w-1/2 text-white rounded-full p-1  "
-                type="submit"
+                type="submit" 
               >
                 Update
               </button>
             </div>
           </form>
         </header>
+        <ToastContainer />
       </div>
     </>
   );

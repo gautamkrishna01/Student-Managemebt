@@ -1,10 +1,11 @@
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { createStudent } from "../Service/Createapi";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdOutlineCancelPresentation } from "react-icons/md";
 const CreateStudent = () => {
   const navigate = useNavigate();
 
@@ -23,16 +24,16 @@ const CreateStudent = () => {
   return (
     <>
       <div>
-        
+      
         <header className="text-center text-2xl  mt-5  ">
           <h4>Apply as a Student</h4>
-         
         </header>
         <form
           onSubmit={handleSubmit((values: any) =>
             mutateAsync(values, { onSuccess: () => reset() })
           )}
         >
+          
           <div className="grid grid-cols-2   w-1/2  m-auto h-full  gap-3  my-12">
             <input
               type="text"

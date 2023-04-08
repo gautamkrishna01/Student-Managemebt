@@ -14,6 +14,14 @@ export interface authData {
   password: number;
 }
 const header = { "Access-Control-Allow-Origin": "*" };
+const headers={ 'Content-Type': 'application/json' };
+const body=JSON.stringify({
+    
+  username: 'kminchelle',
+  password: '0lelplR',
+  // expiresInMins: 60, // optional
+})
+
 
 //post the data from server
 export const createStudent = async (value: studentData) => {
@@ -71,13 +79,36 @@ export const updateStudent = async ({
 };
 
 //auth post request
+// export const authPost = async (authValue: authData) => {
+  
+//   try {
+//     const data = await axios.post("https://dummyjson.com/auth/login", {
+//       authValue,
+//     },{headers});
+//     return data;
+//   } catch (error) {
+//     console.log("error",error);
+//   }
+// };
+
+
 export const authPost = async (authValue: authData) => {
   try {
     const data = await axios.post("https://dummyjson.com/auth/login", {
-      authValue,
-    });
+      username: 'kminchelle',
+      password: '0lelplR'
+    }, { headers });
     return data;
   } catch (error) {
     console.log(error);
   }
 };
+
+
+
+
+
+
+
+
+ 
