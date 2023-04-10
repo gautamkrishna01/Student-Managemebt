@@ -4,6 +4,7 @@ import { studentData, updateStudent } from "../Service/Createapi";
 import {  useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 const Update = () => {
+  
   const navigate=useNavigate
   const { register, handleSubmit } = useForm();
   const { mutateAsync } = useMutation(["update"], updateStudent,{
@@ -11,8 +12,9 @@ const Update = () => {
       toast.success("Update succesfully", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-      navigate("/read");
+      navigate("/read")  
     },
+    
   });
   const { id } = useParams();
   return (

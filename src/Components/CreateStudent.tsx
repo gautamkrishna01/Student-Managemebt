@@ -5,7 +5,7 @@ import { createStudent } from "../Service/Createapi";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MdOutlineCancelPresentation } from "react-icons/md";
+import ClipLoader from 'react-spinners/ClipLoader';
 const CreateStudent = () => {
   const navigate = useNavigate();
 
@@ -15,11 +15,12 @@ const CreateStudent = () => {
       toast.success("Post succesfully", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-      navigate("/");
+      navigate("/read");
     },
   });
   if (isLoading) {
-    return <h2 className="text-center text-cyan-600">Loading Data</h2>;
+    return<ClipLoader color={'#fff'} size={150} />
+    
   }
   return (
     <>
@@ -79,6 +80,7 @@ const CreateStudent = () => {
                 type="submit"
               >
                 Register
+                
               </button>
             </div>
           </div>
