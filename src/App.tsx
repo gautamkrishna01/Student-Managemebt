@@ -1,4 +1,4 @@
-import React from "react";
+
 import CreateStudent from "./Components/CreateStudent";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";

@@ -106,9 +106,3 @@ export const authPost = async (authValue: authData) => {
 
 
 
-
-
-
-
-
- 
